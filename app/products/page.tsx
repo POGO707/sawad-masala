@@ -3,19 +3,16 @@
 import ProductGrid from '@/components/ProductGrid'
 import Filters from '@/components/Filters'
 import SortSelect from '@/components/SortSelect'
-import { Metadata } from 'next'
 import { Suspense, useState } from 'react'
 import { Filter, X } from 'lucide-react'
+import { useSearchParams } from 'next/navigation'
 
-export default function ProductsPage({
-  searchParams,
-}: {
-  searchParams: { [key: string]: string | string[] | undefined }
-}) {
+function ProductsContent() {
   const [isFilterOpen, setIsFilterOpen] = useState(false)
-  const category = typeof searchParams.category === 'string' ? searchParams.category : 'all'
-  const sort = typeof searchParams.sort === 'string' ? searchParams.sort : 'popular'
-  const search = typeof searchParams.search === 'string' ? searchParams.search : ''
+  const searchParams = useSearchParams()
+  const category = searchParams.get('category') || 'all'
+  const sort = searchParams.get('sort') || 'popular'
+  const search = searchParams.get('search') || ''
 
   return (
     <div className="min-h-screen bg-secondary">
@@ -94,6 +91,14 @@ export default function ProductsPage({
         </div>
       </div>
     </div>
+  )
+}
+
+export default function ProductsPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-secondary flex items-center justify-center"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div></div>}>
+      <ProductsContent />
+    </Suspense>
   )
 }
 
