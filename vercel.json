@@ -1,8 +1,40 @@
+
 {
   "version": 2,
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/nextjs"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/$1"
+    }
+  ],
   "env": {
     "NODE_ENV": "production"
+  },Add a comment on line R5Add diff commentMarkdown input:  edit mode selected.WritePreviewHeadingBoldItalicQuoteCodeLinkUnordered listNumbered listTask listMentionReferenceSaved repliesAdd FilesPaste, drop, or click to add filesCancelComment
+  "build": {
+    "env": {
+      "NEXT_PUBLIC_WHATSAPP_NUMBER": "@whatsapp_number",
+      "MONGODB_URI": "@mongodb_uri",
+      "SMTP_HOST": "@smtp_host",
+      "SMTP_USER": "@smtp_user",
+      "SMTP_PASS": "@smtp_pass"
+    }
   },
+  "functions": {
+    "app/api/**/*.ts": {
+      "maxDuration": 10
+    }
+  },
+  "regions": ["bom1"]
   "regions": [
     "bom1"
   ]
