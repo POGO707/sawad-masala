@@ -30,3 +30,6 @@ Thumbs.db
 logs
 *.log
 .vercel
+
+# Prevent circular directory structures
+frontend/
